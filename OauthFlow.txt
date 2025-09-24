@@ -1,0 +1,9 @@
+Total 10 steps
+1. User clicks on login with google or any other provider
+2. Redirects to google login page.
+3. Login and give consent on the page.
+4. Frontend receives the auth code
+5. Frontend sends it to the backend
+6. Backend sends the code to the auth server to get user information
+7. Backend receives the access token upon successful validation of the auth code.
+8. Then backend validates the token and grant access to user.
