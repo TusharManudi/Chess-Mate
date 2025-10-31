@@ -1,11 +1,15 @@
 package com.chess.chess.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 
 @Entity
+@Getter
+@Setter
 public class Move{
 
     @Id
@@ -28,4 +32,5 @@ public class Move{
     private LocalDateTime timestamp ;
 
     private String fenAfterMove ;
+
 }

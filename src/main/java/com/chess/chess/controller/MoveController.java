@@ -9,6 +9,7 @@ import com.chess.chess.models.User;
 import com.chess.chess.repo.GameRepo;
 import com.chess.chess.repo.UserRepo;
 import com.chess.chess.service.ChessService;
+import com.chess.chess.service.MoveService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -26,6 +27,7 @@ public class MoveController {
     private final GameRepo gameRepo ;
     private final UserRepo userRepo;
     private final SimpMessagingTemplate messagingTemplate;
+    private final MoveService moveService;
 
     @MessageMapping("/move")
     public void makeMove(@Payload MoveRequest moveRequest , Principal principal){
@@ -86,6 +88,7 @@ public class MoveController {
 
         // Update the game in database
         game.setFen(fenAfterMove);
+        moveService.persistMoveAfterValidation(game.getId() , moveRequest , fenAfterMove) ;
         gameRepo.save(game);
 
         // Create move response

@@ -57,8 +57,10 @@ public class UserController {
         }else{
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Email or password incorrect");
         }
-        return ResponseEntity.ok(new LoginResponseDto(jwtToken, user.getEmail(), user.getId().toString()));
+        return ResponseEntity.ok(new LoginResponseDto(jwtToken, user.getDisplayName(), user.getId().toString()));
     }
+
+
 
 
 }

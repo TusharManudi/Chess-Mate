@@ -46,6 +46,11 @@ public class User implements UserDetails {
     }
 
     @Override
+    public String getUsername() {
+        return email; // Spring Security requires this to be the unique identifier (email in our case)
+    }
+
+    @Override
     public boolean isAccountNonExpired() { return true; }
 
     @Override
@@ -56,5 +61,10 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() { return true; }
+
+    // Method to get the display username (not the Spring Security username which is email)
+    public String getDisplayName() {
+        return username;
+    }
 
 }

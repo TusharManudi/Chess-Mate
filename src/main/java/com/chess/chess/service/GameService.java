@@ -1,6 +1,5 @@
 package com.chess.chess.service;
 
-import com.chess.chess.dto.JoinRequest;
 import com.chess.chess.dto.JoinResponse;
 import com.chess.chess.models.Game;
 import com.chess.chess.models.GameStatus;
@@ -104,5 +103,21 @@ public class GameService {
 
     public Game save(Game game) {
         return gameRepo.save(game) ;
+    }
+
+    public Game setResignation(UUID loser, UUID gameId) {
+        Game game = gameRepo.findById(gameId).orElseThrow(() -> new RuntimeException("Game not found")) ;
+        String gameResult ;
+        if(game.getWhite().getId() == loser){
+            gameResult = "BLACK_WINS" ;
+        }else{
+            gameResult = "WHITE_WINS" ;
+        }
+        game.setResult(gameResult);
+        game.setStatus(GameStatus.FINISHED) ;
+        game.setEndTime(LocalDateTime.now()) ;
+        gameRepo.save(game) ;
+        return game ;
+
     }
 }
